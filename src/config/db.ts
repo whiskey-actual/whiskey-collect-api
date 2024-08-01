@@ -5,8 +5,8 @@ import { LogEngine } from 'whiskey-log';
 let sequelize: Sequelize | null = null;
 
 export const initializeDatabase = (le:LogEngine, dbName:string, dbUser:string, dbPass:string, dbHost:string, dialect: 'postgres'|'mysql'|'sqlite'|'mssql') => {
+  le.AddLogEntry(LogEngine.EntryType.Warning, "initializing db .. ")
   if (!sequelize) {
-    le.AddLogEntry(LogEngine.EntryType.Warning, "initializing db .. ")
     sequelize = new Sequelize(dbName, dbUser, dbPass, {
         host: dbHost,
         dialect,
