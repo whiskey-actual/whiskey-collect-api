@@ -1,7 +1,6 @@
-import { Sequelize } from "sequelize"
 import { LogEngine } from "whiskey-log";
 import activeDirectoryDevice from "./components/activeDirectoryDevice";
-import { initializeDatabase } from "./config/db";
+import { initializeDatabase, getDatabase } from "./config/db";
 
 export default class CollectorAPI {
     constructor(dbHost:string, dbName:string, dbUser:string, dbPass:string) {
@@ -19,7 +18,11 @@ export default class CollectorAPI {
     private dbName:string 
     private dbUser:string 
     private dbPass:string
-    private db:Sequelize = new Sequelize()
+
+    private async initDb() {
+        initializeDatabase(this.le, this.dbName, this.dbUser, this.dbPass, this.dbHost, 'postgres')
+        await getDatabase().sync({force:true})
+    }
 
     public async setupDb(syncDb:boolean=false) {
 
@@ -27,8 +30,7 @@ export default class CollectorAPI {
 
         try {
             this.le.AddLogEntry(LogEngine.EntryType.Info, "setting up db ..")
-            this.db = initializeDatabase(this.le, this.dbName, this.dbUser, this.dbPass, this.dbHost, 'postgres')
-            const result = await this.db.sync({force:true})
+            await this.initDb()
             this.le.AddLogEntry(LogEngine.EntryType.Info, ".. db setup complete.")
         } catch(err:any) {
             this.le.AddLogEntry(LogEngine.EntryType.Error, err)

@@ -6,22 +6,22 @@ let sequelize: Sequelize | null = null;
 
 export const initializeDatabase = (le:LogEngine, dbName:string, dbUser:string, dbPass:string, dbHost:string, dialect: 'postgres'|'mysql'|'sqlite'|'mssql') => {
   le.AddLogEntry(LogEngine.EntryType.Warning, "initializing db .. ")
-  if (!sequelize) {
-    sequelize = new Sequelize(dbName, dbUser, dbPass, {
-        host: dbHost,
-        dialect,
-        logging: false,
-        operatorsAliases: {},
-        pool: {
-            max: 5,
-            min: 0,
-            acquire: 30000,
-            idle: 10000
-        }
-    });
-  }
+  
+  sequelize = new Sequelize(dbName, dbUser, dbPass, {
+      host: dbHost,
+      dialect,
+      logging: false,
+      operatorsAliases: {},
+      pool: {
+          max: 5,
+          min: 0,
+          acquire: 30000,
+          idle: 10000
+      }
+  });
+  
   le.AddLogEntry(LogEngine.EntryType.Warning, ".. db initialization complete. ")
-  return sequelize;
+
 };
 
 export const getDatabase = (): Sequelize => {
