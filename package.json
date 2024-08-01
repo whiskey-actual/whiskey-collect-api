@@ -1,0 +1,27 @@
+{
+  "name": "whiskey-collect-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/whiskey-actual/whiskey-collect-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whiskey-actual/whiskey-collect-api/issues"
+  },
+  "homepage": "https://github.com/whiskey-actual/whiskey-collect-api#readme",
+  "dependencies": {
+    "sequelize": "^6.37.3",
+    "whiskey-log": "^1.0.4",
+    "whiskey-sequelize": "^1.0.7"
+  }
+}
