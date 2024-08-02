@@ -34,7 +34,7 @@ export default class CollectorAPI {
             await getDatabase().sync({force:true})
             .then(async (db) => {
                 // Define models
-                const Device = defineDeviceModel(this.le, db);
+                const Device = defineDeviceModel(this.le);
                 this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
             })
             .catch(err => {

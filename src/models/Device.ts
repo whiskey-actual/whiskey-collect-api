@@ -1,4 +1,5 @@
 import sql, { Model, ModelStatic, Sequelize } from 'sequelize'
+import { initializeDatabase, getDatabase } from '../config/db';
 import { LogEngine, LogEntryType } from 'whiskey-log';
 // import OperatingSystem from './OperatingSystem';
 import DeviceActiveDirectory from './DeviceActiveDirectory';
@@ -9,9 +10,11 @@ import DeviceActiveDirectory from './DeviceActiveDirectory';
 
 export class Device extends Model {}
 
-export const defineDeviceModel = (le:LogEngine, sequelize:Sequelize):ModelStatic<Device> => {
+export const defineDeviceModel = (le:LogEngine):ModelStatic<Device> => {
 
     le.AddLogEntry(LogEntryType.Add, "device model")
+
+    const db = getDatabase()
 
     Device.init({
         DeviceID:           {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
@@ -42,10 +45,8 @@ export const defineDeviceModel = (le:LogEngine, sequelize:Sequelize):ModelStatic
         DeviceCrowdstrikeID:        {type:sql.INTEGER, allowNull:false, defaultValue:0}
     },
     {
-        sequelize,
-        freezeTableName: true,
-        modelName: 'Device',
-        initialAutoIncrement: '0'
+        sequelize: db,
+        freezeTableName: true
     });
 
     Device.upsert({DeviceID:0, DeviceName:'UNKNOWN'})
