@@ -29,11 +29,10 @@ export default class CollectorAPI {
         
         // Authenticate and sync the database
         await getDatabase().authenticate()
-        .then(() => {
+        .then(async () => {
             this.le.AddLogEntry(LogEntryType.Success, '.. connected to db.')
-            let db = getDatabase()
-            db.sync({force:true})
-            .then((db) => {
+            await getDatabase().sync({force:true})
+            .then(async (db) => {
                 // Define models
                 const Device = defineDeviceModel(this.le, db);
                 this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
