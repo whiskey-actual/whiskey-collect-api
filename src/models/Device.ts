@@ -10,11 +10,9 @@ import DeviceActiveDirectory from './DeviceActiveDirectory';
 
 export class Device extends Model {}
 
-export const defineDeviceModel = (le:LogEngine):ModelStatic<Device> => {
+export const defineDeviceModel = (le:LogEngine, db:Sequelize):ModelStatic<Device> => {
 
     le.AddLogEntry(LogEntryType.Add, "device model")
-
-    const db = getDatabase()
 
     Device.init({
         DeviceID:           {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},

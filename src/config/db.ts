@@ -24,7 +24,7 @@ export const initializeDatabase = (le:LogEngine, dbHost:string, dbName:string, d
 
 };
 
-export const getDatabase = (): Sequelize => {
+export const getDatabase = async():Promise<Sequelize> => {
   if (!sequelize) {
     throw new Error('Database has not been initialized. Please call initializeDatabase first.');
   }

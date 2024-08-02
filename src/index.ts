@@ -2,6 +2,7 @@ import { initializeDatabase, getDatabase } from './config/db';
 import { LogEngine, LogEntryType } from "whiskey-log";
 import activeDirectoryDevice from "./components/activeDirectoryDevice";
 import { defineDeviceModel } from './models/Device'
+import { Sequelize } from 'sequelize';
   
 export default class CollectorAPI {
     constructor(dbHost:string, dbName:string, dbUser:string, dbPass:string, dbShowLog:boolean=false) {
@@ -19,39 +20,41 @@ export default class CollectorAPI {
     private dbPass:string
     private dbShowLog:boolean
 
-    public async initDb() {
-
-        this.le.logStack.push("setupDb")
-
-        this.le.AddLogEntry(LogEntryType.Info, "setting up db ..")
-
+    private initDb = async() => {
+        this.le.AddLogEntry(LogEntryType.Info, "initializing db connection ..")
         initializeDatabase(this.le, this.dbHost, this.dbName, this.dbUser, this.dbPass, this.dbShowLog);
-        
-        // Authenticate and sync the database
-        await getDatabase().authenticate()
-        .then(async () => {
-            this.le.AddLogEntry(LogEntryType.Success, '.. connected to db.')
-            await getDatabase().sync({force:true})
-            .then(async (db) => {
-                // Define models
-                const Device = defineDeviceModel(this.le);
-                this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
-            })
-            .catch(err => {
-                this.le.AddLogEntry(LogEntryType.Error, err.toString())
-                throw new Error(err)
-            })
-        })
-        .catch(err => {
-            this.le.AddLogEntry(LogEntryType.Error, err.toString())
-            throw new Error(err)
-        })
+        this.le.AddLogEntry(LogEntryType.Info, ".. db connection initialized.")
+        return await getDatabase()
+    }
+
+    private syncDb = async (db:Sequelize) => {
+        this.le.AddLogEntry(LogEntryType.Info, "syncing db ..")
+        await db.sync({force:true})
+        this.le.AddLogEntry(LogEntryType.Info, "db sync complete ..")
+    }
+
+    private buildModels = async(db:Sequelize) => {
+        this.le.AddLogEntry(LogEntryType.Info, "building models ..")
+        const Device = defineDeviceModel(this.le, db);
+        this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
+    }
+
+    public async createDb() {
+
+        this.le.logStack.push("createDb")
+        this.le.AddLogEntry(LogEntryType.Info, "creating db ..")
+
+        const db = await this.initDb()
+
+        await this.syncDb(db)
+
+        await this.buildModels(db)
             
         this.le.AddLogEntry(LogEntryType.Info, ".. db setup complete.")
-        
 
-        
     }
+
+   
 
     public async addActiveDirectoryDeviceData(data:any) {
         this.le.AddDelimiter("Active Directory Device Data")
