@@ -1,10 +1,13 @@
 import sql, { Model, ModelStatic, Sequelize } from 'sequelize'
+import { LogEngine, LogEntryType } from 'whiskey-log';
 import { Device } from './Device';
 
 export class DeviceActiveDirectory extends Model {}
 
 
-export const defineDeviceActiveDirectory = (sequelize: Sequelize):ModelStatic<DeviceActiveDirectory> => {
+export const defineDeviceActiveDirectory = (le:LogEngine, sequelize:Sequelize):ModelStatic<DeviceActiveDirectory> => {
+
+    le.AddLogEntry(LogEntryType.Add, "device model")
 
     DeviceActiveDirectory.init({
         DeviceActiveDirectoryID:                {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
@@ -21,9 +24,9 @@ export const defineDeviceActiveDirectory = (sequelize: Sequelize):ModelStatic<De
         ActiveDirectoryLastLogonTimestamp:      {type:sql.DATE}
     },
     {
+        modelName: 'DeviceActiveDirectory',
         sequelize,
         freezeTableName: true,
-        modelName: 'DeviceActiveDirectory',
         initialAutoIncrement: '0'
     });
 

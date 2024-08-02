@@ -1,7 +1,5 @@
 import sql, { Model, ModelStatic, Sequelize } from 'sequelize'
-import { initializeDatabase, getDatabase } from '../config/db';
 import { LogEngine, LogEntryType } from 'whiskey-log';
-// import OperatingSystem from './OperatingSystem';
 import DeviceActiveDirectory from './DeviceActiveDirectory';
 // import DeviceAzureManaged from './DeviceAzureManaged';
 // import DeviceConnectwise from './DeviceConnectwise';
@@ -43,6 +41,7 @@ export const defineDeviceModel = (le:LogEngine, db:Sequelize):ModelStatic<Device
         DeviceCrowdstrikeID:        {type:sql.INTEGER, allowNull:false, defaultValue:0}
     },
     {
+        modelName: 'Device',
         sequelize: db,
         freezeTableName: true
     });
@@ -50,7 +49,7 @@ export const defineDeviceModel = (le:LogEngine, db:Sequelize):ModelStatic<Device
     Device.upsert({DeviceID:0, DeviceName:'UNKNOWN'})
 
     // Device.belongsTo(OperatingSystem, {foreignKey: {name:'OperatingSystemID', allowNull:false, defaultValue:0}})
-    Device.belongsTo(DeviceActiveDirectory)
+    //Device.hasOne(DeviceActiveDirectory)
     // Device.belongsTo(DeviceAzure, {foreignKey: {name:'DeviceAzureID', allowNull:false, defaultValue:0}})
     // Device.belongsTo(DeviceAzureManaged, {foreignKey: {name:'DeviceAzureManagedID', allowNull:false, defaultValue:0}})
     // Device.belongsTo(DeviceConnectwise, {foreignKey: {name:'DeviceConnectwiseID', allowNull:false, defaultValue:0}})
