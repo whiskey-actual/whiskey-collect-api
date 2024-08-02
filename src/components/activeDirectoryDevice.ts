@@ -1,6 +1,6 @@
-import { LogEngine } from "whiskey-log";
-import Device from "../models/Device";
-import DeviceActiveDirectory from "../models/DeviceActiveDirectory";
+import { LogEngine, LogEntryType } from "whiskey-log";
+import { Device } from "../models/Device";
+import { DeviceActiveDirectory } from "../models/DeviceActiveDirectory";
 import { Sequelizer } from "whiskey-sequelize";
 import validateData from "../utilities/validateData";
 
@@ -60,7 +60,7 @@ export default async function activeDirectoryDevice(le:LogEngine, data:any) {
         }
         
     } catch(err:any) {
-        le.AddLogEntry(LogEngine.EntryType.Error, err)
+        le.AddLogEntry(LogEntryType.Error, err)
         throw new Error(err)
     } finally {
         le.logStack.pop()

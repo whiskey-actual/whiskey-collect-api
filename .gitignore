@@ -110,3 +110,6 @@ dist
 
 # built items
 /lib
+
+# test
+/test

@@ -1,4 +1,4 @@
-import { LogEngine } from "whiskey-log";
+import { LogEngine, LogEntryType } from "whiskey-log";
 
 export default function validateData(le:LogEngine, mandatoryFields:string[], data:any):{isValid:boolean,message:string} {
     le.logStack.push("validateData")
@@ -16,13 +16,13 @@ export default function validateData(le:LogEngine, mandatoryFields:string[], dat
         }
 
         if(missingFields.length>0) {
-            le.AddLogEntry(LogEngine.EntryType.Warning, ".. missing mandatory fields: [" + missingFields.join(",") + "]")
+            le.AddLogEntry(LogEntryType.Warning, ".. missing mandatory fields: [" + missingFields.join(",") + "]")
         } else {
             result = {isValid:true, message:"payload validation passed."}
         }
 
     } catch(err:any) {
-        le.AddLogEntry(LogEngine.EntryType.Error, err)
+        le.AddLogEntry(LogEntryType.Error, err)
         throw new Error(err)
     } finally {
         le.logStack.pop()

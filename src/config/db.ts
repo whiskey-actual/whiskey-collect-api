@@ -1,11 +1,11 @@
 // dbConfig.ts
 import { Sequelize } from 'sequelize';
-import { LogEngine } from 'whiskey-log';
+import { LogEngine, LogEntryType } from 'whiskey-log';
 
 let sequelize: Sequelize | null = null;
 
-export const initializeDatabase = (le:LogEngine, dbName:string, dbUser:string, dbPass:string, dbHost:string, dialect: 'postgres'|'mysql'|'sqlite'|'mssql') => {
-  le.AddLogEntry(LogEngine.EntryType.Warning, "initializing db .. ")
+export const initializeDatabase = (le:LogEngine, dbHost:string, dbName:string, dbUser:string, dbPass:string, dialect: 'postgres'|'mysql'|'sqlite'|'mssql') => {
+  le.AddLogEntry(LogEntryType.Warning, "initializing db .. ")
   
   sequelize = new Sequelize(dbName, dbUser, dbPass, {
       host: dbHost,
@@ -20,7 +20,7 @@ export const initializeDatabase = (le:LogEngine, dbName:string, dbUser:string, d
       }
   });
   
-  le.AddLogEntry(LogEngine.EntryType.Warning, ".. db initialization complete. ")
+  le.AddLogEntry(LogEntryType.Warning, ".. db initialization complete. ")
 
 };
 
