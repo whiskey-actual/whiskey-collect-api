@@ -1,4 +1,5 @@
 import sql, { Model, ModelStatic, Sequelize } from 'sequelize'
+import { LogEngine, LogEntryType } from 'whiskey-log';
 // import OperatingSystem from './OperatingSystem';
 import DeviceActiveDirectory from './DeviceActiveDirectory';
 // import DeviceAzureManaged from './DeviceAzureManaged';
@@ -6,24 +7,12 @@ import DeviceActiveDirectory from './DeviceActiveDirectory';
 // import DeviceCrowdstrike from './DeviceCrowdstrike';
 // import DeviceAzure from './DeviceAzure';
 
-export class Device extends Model {
-    public DeviceID!:number
-    public DeviceName!:string
-    public DeviceFQDN?:string
-    public DeviceIP?:string
-    public DeviceFirstSeen?:Date
-    public DeviceLastSeen?:Date
-    public DeviceOperatingSystemID?:number
-    public DeviceActiveDirectoryID?:number
-    public DeviceAzureID?:number
-    public DeviceAzureManagedID?:number
-    public DeviceConnectwiseID?:number
-    public DeviceCrowdstrikeID?:number
-}
+export class Device extends Model {}
 
-export const defineDeviceModel = (sequelize: Sequelize):ModelStatic<Device> => {
+export const defineDeviceModel = (le:LogEngine, sequelize:Sequelize):ModelStatic<Device> => {
 
-  
+    le.AddLogEntry(LogEntryType.Add, "device model")
+
     Device.init({
         DeviceID:           {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
         DeviceName:         {type:sql.STRING, allowNull:false, unique:true},

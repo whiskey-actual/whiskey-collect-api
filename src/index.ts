@@ -26,23 +26,24 @@ export default class CollectorAPI {
         initializeDatabase(this.le, this.dbHost, this.dbName, this.dbUser, this.dbPass, 'postgres');
         let db = getDatabase()
         
-        // Define models
-        const Device = defineDeviceModel(db);
-
         // Authenticate and sync the database
-        db.authenticate()
+        await db.authenticate()
         .then(() => {
-            this.le.AddLogEntry(LogEntryType.Info, 'Connection has been established successfully.')
+            this.le.AddLogEntry(LogEntryType.Success, '.. connected to db.')
             return db.sync({force:true});
         })
         .then(() => {
-            this.le.AddLogEntry(LogEntryType.Info, 'Database & tables created!')
+            // Define models
+            const Device = defineDeviceModel(this.le, db);
+            this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
         })
         .catch(err => {
             this.le.AddLogEntry(LogEntryType.Error, err)
-        }).finally(() => {
-            this.le.AddLogEntry(LogEntryType.Info, ".. db setup complete.")
+            throw new Error(err)
         })
+            
+        this.le.AddLogEntry(LogEntryType.Info, ".. db setup complete.")
+        
 
         
     }

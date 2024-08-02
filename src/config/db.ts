@@ -5,13 +5,13 @@ import { LogEngine, LogEntryType } from 'whiskey-log';
 let sequelize: Sequelize | null = null;
 
 export const initializeDatabase = (le:LogEngine, dbHost:string, dbName:string, dbUser:string, dbPass:string, dialect: 'postgres'|'mysql'|'sqlite'|'mssql') => {
-  le.AddLogEntry(LogEntryType.Warning, "initializing db .. ")
+  le.AddLogEntry(LogEntryType.Warning, ".. creating db connection .. ")
   
   sequelize = new Sequelize(dbName, dbUser, dbPass, {
       host: dbHost,
       dialect,
       logging: false,
-      operatorsAliases: {},
+      //operatorsAliases: {},
       pool: {
           max: 5,
           min: 0,
@@ -20,7 +20,7 @@ export const initializeDatabase = (le:LogEngine, dbHost:string, dbName:string, d
       }
   });
   
-  le.AddLogEntry(LogEntryType.Warning, ".. db initialization complete. ")
+  le.AddLogEntry(LogEntryType.Warning, ".. db connection setup complete. ")
 
 };
 

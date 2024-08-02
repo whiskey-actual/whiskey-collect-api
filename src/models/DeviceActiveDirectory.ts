@@ -1,20 +1,7 @@
 import sql, { Model, ModelStatic, Sequelize } from 'sequelize'
 import { Device } from './Device';
 
-export class DeviceActiveDirectory extends Model {
-    public DeviceActiveDirectoryID!:number
-    public DeviceID!:number
-    public ActiveDirectoryDN?:string
-    public ActiveDirectoryOperatingSystem?:string
-    public ActiveDirectoryOperatingSystemVersion?:string
-    public ActiveDirectoryDNSHostName?:string
-    public ActiveDirectoryLogonCount?:number
-    public ActiveDirectoryWhenCreated?:Date
-    public ActiveDirectoryWhenChanged?:Date
-    public ActiveDirectoryLastLogon?:Date
-    public ActiveDirectoryPwdLastSet?:Date
-    public ActiveDirectoryLastLogonTimestamp?:Date
-}
+export class DeviceActiveDirectory extends Model {}
 
 
 export const defineDeviceActiveDirectory = (sequelize: Sequelize):ModelStatic<DeviceActiveDirectory> => {
