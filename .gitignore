@@ -112,4 +112,5 @@ dist
 /lib
 
 # test
-/test
+/tests
+jest.*
