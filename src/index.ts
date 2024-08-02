@@ -38,7 +38,7 @@ export default class CollectorAPI {
             this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
         })
         .catch(err => {
-            this.le.AddLogEntry(LogEntryType.Error, err)
+            this.le.AddLogEntry(LogEntryType.Error, err.toString())
             throw new Error(err)
         })
             
