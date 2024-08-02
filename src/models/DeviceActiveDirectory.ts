@@ -1,15 +1,9 @@
-import sql, { Model, ModelStatic, Sequelize } from 'sequelize'
-import { LogEngine, LogEntryType } from 'whiskey-log';
-import { Device } from './Device';
+import sql from 'sequelize'
+import Device from './Device';
 
-export class DeviceActiveDirectory extends Model {}
+import config from '../config';
 
-
-export const defineDeviceActiveDirectory = (le:LogEngine, sequelize:Sequelize):ModelStatic<DeviceActiveDirectory> => {
-
-    le.AddLogEntry(LogEntryType.Add, "device model")
-
-    DeviceActiveDirectory.init({
+const DeviceActiveDirectory = config.db.db.define("DeviceActiveDirectory", {
         DeviceActiveDirectoryID:                {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
         DeviceID:                               {type:sql.INTEGER, allowNull:false, unique:true},
         ActiveDirectoryDN:                      {type:sql.STRING, allowNull:false, unique:true},
@@ -24,20 +18,13 @@ export const defineDeviceActiveDirectory = (le:LogEngine, sequelize:Sequelize):M
         ActiveDirectoryLastLogonTimestamp:      {type:sql.DATE}
     },
     {
-        modelName: 'DeviceActiveDirectory',
-        sequelize,
         freezeTableName: true,
+        //modelName: 'Device',
         initialAutoIncrement: '0'
+    
     });
 
-    DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
-    DeviceActiveDirectory.belongsTo(Device)
-
-    return DeviceActiveDirectory
-    
-}
-    
-
-
+DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
+DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})
 
 export default DeviceActiveDirectory

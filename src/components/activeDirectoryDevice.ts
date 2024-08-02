@@ -1,11 +1,12 @@
 import { LogEngine, LogEntryType } from "whiskey-log";
-import { Device } from "../models/Device";
-import { DeviceActiveDirectory } from "../models/DeviceActiveDirectory";
+import Device from "../models/Device";
+import DeviceActiveDirectory from "../models/DeviceActiveDirectory";
 import { Sequelizer } from "whiskey-sequelize";
 import validateData from "../utilities/validateData";
+import config from "../config";
 
-export default async function activeDirectoryDevice(le:LogEngine, data:any) {
-    le.logStack.push("device")
+export default async function activeDirectoryDevice(data:any) {
+    config.le.logStack.push("device")
 
     try {
 
@@ -23,7 +24,7 @@ export default async function activeDirectoryDevice(le:LogEngine, data:any) {
             'ActiveDirectoryLastLogonTimestamp'
         ]
 
-        const validated = validateData(le, mandatoryFields, data)
+        const validated = validateData(mandatoryFields, data)
         if(validated.isValid) {
 
             const DeviceName:string = data.DeviceName.trim()
@@ -38,7 +39,7 @@ export default async function activeDirectoryDevice(le:LogEngine, data:any) {
             const ActiveDirectoryPwdLastSet:Date = new Date(data.ActiveDirectoryPwdLastSet)
             const ActiveDirectoryLastLogonTimestamp:Date = new Date(data.ActiveDirectoryLastLogonTimestamp)
 
-            const ws = new Sequelizer(le)
+            const ws = new Sequelizer(config.le)
             let DeviceID = await ws.getId(Device, DeviceName)
             if(!DeviceID) {
                 DeviceID = await ws.createRow(Device, {DeviceName})
@@ -60,10 +61,10 @@ export default async function activeDirectoryDevice(le:LogEngine, data:any) {
         }
         
     } catch(err:any) {
-        le.AddLogEntry(LogEntryType.Error, err)
+        config.le.AddLogEntry(LogEntryType.Error, err)
         throw new Error(err)
     } finally {
-        le.logStack.pop()
+        config.le.logStack.pop()
     }
     
     return

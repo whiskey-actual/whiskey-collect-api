@@ -1,13 +1,14 @@
 // dbConfig.ts
 import { Sequelize } from 'sequelize';
-import { LogEngine, LogEntryType } from 'whiskey-log';
+import { LogEntryType } from 'whiskey-log';
+import le from './le';
 
-let sequelize: Sequelize | null = null;
+let db:Sequelize = new Sequelize({dialect:'postgres'})
 
-export const initializeDatabase = (le:LogEngine, dbHost:string, dbName:string, dbUser:string, dbPass:string, showLog:boolean=false) => {
+async function initializeDatabase(dbHost:string, dbName:string, dbUser:string, dbPass:string, showLog:boolean=false) {
   le.AddLogEntry(LogEntryType.Warning, ".. creating db connection .. ")
   
-  sequelize = new Sequelize(dbName, dbUser, dbPass, {
+  db = new Sequelize(dbName, dbUser, dbPass, {
       host: dbHost,
       dialect: 'postgres',
       logging: showLog ? (...msg) => console.log(msg) : false,
@@ -20,13 +21,21 @@ export const initializeDatabase = (le:LogEngine, dbHost:string, dbName:string, d
       }
   });
   
+  await db.sync({force:true})
+
   le.AddLogEntry(LogEntryType.Warning, ".. db connection setup complete. ")
 
 };
 
-export const getDatabase = async():Promise<Sequelize> => {
-  if (!sequelize) {
-    throw new Error('Database has not been initialized. Please call initializeDatabase first.');
-  }
-  return sequelize;
-};
+// const db = () => {
+//   if (!sequelize) {
+//     throw new Error('Database has not been initialized. Please call initializeDatabase first.');
+//   }
+//   return sequelize;
+// };
+
+
+export default {
+  initializeDatabase,
+  db
+}

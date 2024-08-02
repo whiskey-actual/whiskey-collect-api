@@ -1,7 +1,8 @@
 import { LogEngine, LogEntryType } from "whiskey-log";
+import config from "../config";
 
-export default function validateData(le:LogEngine, mandatoryFields:string[], data:any):{isValid:boolean,message:string} {
-    le.logStack.push("validateData")
+export default function validateData(mandatoryFields:string[], data:any):{isValid:boolean,message:string} {
+    config.le.logStack.push("validateData")
 
     let result = {isValid:false, message:"payload not parsed."}
     
@@ -16,16 +17,16 @@ export default function validateData(le:LogEngine, mandatoryFields:string[], dat
         }
 
         if(missingFields.length>0) {
-            le.AddLogEntry(LogEntryType.Warning, ".. missing mandatory fields: [" + missingFields.join(",") + "]")
+            config.le.AddLogEntry(LogEntryType.Warning, ".. missing mandatory fields: [" + missingFields.join(",") + "]")
         } else {
             result = {isValid:true, message:"payload validation passed."}
         }
 
     } catch(err:any) {
-        le.AddLogEntry(LogEntryType.Error, err)
+        config.le.AddLogEntry(LogEntryType.Error, err)
         throw new Error(err)
     } finally {
-        le.logStack.pop()
+        config.le.logStack.pop()
     }
 
     return result

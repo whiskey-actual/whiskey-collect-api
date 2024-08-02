@@ -1,7 +1,14 @@
 import CollectorAPI from '../src/index'
 
-let c = new CollectorAPI("localhost", "postgres", "postgres", "example", true)
-c.createDb().then(() => {
-    c.addActiveDirectoryDeviceData({})
-})
 
+async function main() {
+    await doShit()
+}
+
+async function doShit() {
+    let c = new CollectorAPI()
+    await c.initdb("localhost", "example", "postgres", "example", true)
+    await c.addActiveDirectoryDeviceData({})    
+}
+
+main()
