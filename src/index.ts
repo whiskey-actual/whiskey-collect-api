@@ -26,16 +26,17 @@ export default class CollectorAPI {
         this.le.AddLogEntry(LogEntryType.Info, "setting up db ..")
 
         initializeDatabase(this.le, this.dbHost, this.dbName, this.dbUser, this.dbPass, this.dbShowLog);
-        let db = getDatabase()
         
         // Authenticate and sync the database
-        await db.authenticate()
+        await getDatabase().authenticate()
         .then(() => {
             this.le.AddLogEntry(LogEntryType.Success, '.. connected to db.')
-            return db.sync({force:true});
+            let db = getDatabase()
+            db.sync({force:true});
         })
         .then(() => {
             // Define models
+            let db = getDatabase()
             const Device = defineDeviceModel(this.le, db);
             this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
         })
