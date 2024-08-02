@@ -28,7 +28,7 @@ export const defineDeviceActiveDirectory = (sequelize: Sequelize):ModelStatic<De
     });
 
     DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
-    DeviceActiveDirectory.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
+    DeviceActiveDirectory.belongsTo(Device)
 
     return DeviceActiveDirectory
     
