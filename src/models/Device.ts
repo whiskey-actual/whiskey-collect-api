@@ -46,7 +46,7 @@ Device.upsert({DeviceID:0, DeviceName:'UNKNOWN'})
 
 //Device.belongsTo(OperatingSystem, {foreignKey: {name:'OperatingSystemID', allowNull:false, defaultValue:0}})
 
-Device.belongsTo(DeviceActiveDirectory, {foreignKey: {name:'DeviceActiveDirectoryID', allowNull:false, defaultValue:0}})
+Device.belongsTo(DeviceActiveDirectory, {as:'DeviceActiveDirectory', foreignKey:'DeviceActiveDirectoryID'})
 // Device.belongsTo(DeviceAzure, {foreignKey: {name:'DeviceAzureID', allowNull:false, defaultValue:0}})
 // Device.belongsTo(DeviceAzureManaged, {foreignKey: {name:'DeviceAzureManagedID', allowNull:false, defaultValue:0}})
 // Device.belongsTo(DeviceConnectwise, {foreignKey: {name:'DeviceConnectwiseID', allowNull:false, defaultValue:0}})

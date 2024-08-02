@@ -25,6 +25,9 @@ const DeviceActiveDirectory = config.db.db.define("DeviceActiveDirectory", {
     });
 
 DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
-DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})
+
+//DeviceActiveDirectory.belongsTo(Device, {as:'Device', foreignKey:'DeviceID'})
+
+//DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})
 
 export default DeviceActiveDirectory
