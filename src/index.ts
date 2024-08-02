@@ -4,18 +4,20 @@ import activeDirectoryDevice from "./components/activeDirectoryDevice";
 import { defineDeviceModel } from './models/Device'
   
 export default class CollectorAPI {
-    constructor(dbHost:string, dbName:string, dbUser:string, dbPass:string) {
+    constructor(dbHost:string, dbName:string, dbUser:string, dbPass:string, dbShowLog:boolean=false) {
         this.le = new LogEngine(["CollectorAPI"], false, 64)
         this.dbHost=dbHost
         this.dbName=dbName
         this.dbUser=dbUser
         this.dbPass=dbPass
+        this.dbShowLog = dbShowLog
     }
     private le:LogEngine 
     private dbHost:string
     private dbName:string
     private dbUser:string
     private dbPass:string
+    private dbShowLog:boolean
 
     public async initDb() {
 
@@ -23,7 +25,7 @@ export default class CollectorAPI {
 
         this.le.AddLogEntry(LogEntryType.Info, "setting up db ..")
 
-        initializeDatabase(this.le, this.dbHost, this.dbName, this.dbUser, this.dbPass, 'postgres');
+        initializeDatabase(this.le, this.dbHost, this.dbName, this.dbUser, this.dbPass, this.dbShowLog);
         let db = getDatabase()
         
         // Authenticate and sync the database
