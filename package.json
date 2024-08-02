@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/whiskey-actual/whiskey-collect-api#readme",
   "dependencies": {
+    "pg": "^8.12.0",
     "sequelize": "^6.37.3",
     "whiskey-log": "^1.0.4",
     "whiskey-sequelize": "^1.0.7"
