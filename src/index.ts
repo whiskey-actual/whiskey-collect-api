@@ -32,13 +32,16 @@ export default class CollectorAPI {
         .then(() => {
             this.le.AddLogEntry(LogEntryType.Success, '.. connected to db.')
             let db = getDatabase()
-            db.sync({force:true});
-        })
-        .then(() => {
-            // Define models
-            let db = getDatabase()
-            const Device = defineDeviceModel(this.le, db);
-            this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
+            db.sync({force:true})
+            .then((db) => {
+                // Define models
+                const Device = defineDeviceModel(this.le, db);
+                this.le.AddLogEntry(LogEntryType.Success, '.. db models complete.')
+            })
+            .catch(err => {
+                this.le.AddLogEntry(LogEntryType.Error, err.toString())
+                throw new Error(err)
+            })
         })
         .catch(err => {
             this.le.AddLogEntry(LogEntryType.Error, err.toString())
