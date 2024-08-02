@@ -10,7 +10,7 @@ export const initializeDatabase = (le:LogEngine, dbHost:string, dbName:string, d
   sequelize = new Sequelize(dbName, dbUser, dbPass, {
       host: dbHost,
       dialect: 'postgres',
-      logging: showLog,
+      logging: showLog ? (...msg) => console.log(msg) : false,
       //operatorsAliases: {},
       pool: {
           max: 5,
