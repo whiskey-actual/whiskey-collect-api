@@ -114,3 +114,5 @@ dist
 # test
 tests/
 jest.*
+
+template.ts
