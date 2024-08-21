@@ -1,6 +1,6 @@
 import { LogEngine, LogEntryType } from "whiskey-log";
-import Device from "../models/Device";
-import DeviceActiveDirectory from "../models/DeviceActiveDirectory";
+import { Device } from "../models/Device";
+import { DeviceActiveDirectory } from "../models/DeviceActiveDirectory";
 import { Sequelizer } from "whiskey-sequelize";
 import validateData from "../utilities/validateData";
 import config from "../config";

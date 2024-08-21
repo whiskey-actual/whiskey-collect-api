@@ -1,9 +1,27 @@
-import sql from 'sequelize'
-import Device from './Device';
+import sql, { Model, Sequelize } from 'sequelize'
+import {Device} from './Device';
 
 import config from '../config';
 
-const DeviceActiveDirectory = config.db.getdb().define("DeviceActiveDirectory", {
+export class DeviceActiveDirectory extends Model<any,any> {
+    public DeviceActiveDirectoryID!:                number
+    public DeviceID!:                               number
+    public ActiveDirectoryDN!:                      string
+    public ActiveDirectoryOperatingSystem!:         string
+    public ActiveDirectoryOperatingSystemVersion!:  string
+    public ActiveDirectoryDNSHostName!:             string
+    public ActiveDirectoryLogonCount!:              number
+    public ActiveDirectoryWhenCreated!:             Date
+    public ActiveDirectoryWhenChanged!:             Date
+    public ActiveDirectoryLastLogon!:               Date
+    public ActiveDirectoryPwdLastSet!:              Date
+    public ActiveDirectoryLastLogonTimestamp!:      Date
+}
+
+
+export function initDeviceActiveDirectory(sequelize:Sequelize) {
+
+    DeviceActiveDirectory.init({
         DeviceActiveDirectoryID:                {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
         DeviceID:                               {type:sql.INTEGER, allowNull:false, unique:true},
         ActiveDirectoryDN:                      {type:sql.STRING, allowNull:false, unique:true},
@@ -16,18 +34,18 @@ const DeviceActiveDirectory = config.db.getdb().define("DeviceActiveDirectory", 
         ActiveDirectoryLastLogon:               {type:sql.DATE},
         ActiveDirectoryPwdLastSet:              {type:sql.DATE},
         ActiveDirectoryLastLogonTimestamp:      {type:sql.DATE}
-    },
-    {
-        freezeTableName: true,
-        //modelName: 'Device',
-        initialAutoIncrement: '0'
-    
-    });
+    }, {
+        sequelize,
+        tableName: 'DeviceActiveDirectory',
+    })
 
-DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
+    DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
+
+}
+   
+
+
 
 //DeviceActiveDirectory.belongsTo(Device, {as:'Device', foreignKey:'DeviceID'})
 
 //DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})
-
-export default DeviceActiveDirectory
