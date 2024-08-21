@@ -55,4 +55,8 @@ export default class CollectorAPI {
     return this.models
   }
 
+  async addActiveDirectoryDevice(data:any) {
+    await activeDirectoryDevice(data)
+  }
+
 }
