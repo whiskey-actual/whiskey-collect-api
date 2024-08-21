@@ -32,7 +32,7 @@ const getdb = async () => {
   const MAX_ATTEMPTS = 30
   let attemptCounter=0
   while(!db && attemptCounter<MAX_ATTEMPTS) {
-    sleep(le)
+    sleep(le, ".. waiting for db")
     attemptCounter++
   }
   if (!db) {
