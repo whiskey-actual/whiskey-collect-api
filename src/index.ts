@@ -6,7 +6,7 @@ import config from './config';
 export default class CollectorAPI {
     
     public async initdb(dbHost:string, dbName:string, dbUser:string, dbPass:string, dbShowLog:boolean=false) {
-        await config.db.initializeDatabase(dbHost, dbName, dbUser,dbPass, dbShowLog);
+        await config.db.initializeDatabase(dbHost, dbName, dbUser, dbPass, dbShowLog);
     }
 
 

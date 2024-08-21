@@ -3,10 +3,10 @@ import { Sequelize } from 'sequelize';
 import { LogEntryType } from 'whiskey-log';
 import le from './le';
 
-let db:Sequelize = new Sequelize({dialect:'postgres'})
+let db:Sequelize|null=null
 
 async function initializeDatabase(dbHost:string, dbName:string, dbUser:string, dbPass:string, showLog:boolean=false) {
-  le.AddLogEntry(LogEntryType.Warning, ".. creating db connection .. ")
+  le.AddLogEntry(LogEntryType.Warning, "init db: " + dbUser + "@" + dbHost + "::" + dbName)
   
   db = new Sequelize(dbName, dbUser, dbPass, {
       host: dbHost,
@@ -27,15 +27,15 @@ async function initializeDatabase(dbHost:string, dbName:string, dbUser:string, d
 
 };
 
-// const db = () => {
-//   if (!sequelize) {
-//     throw new Error('Database has not been initialized. Please call initializeDatabase first.');
-//   }
-//   return sequelize;
-// };
+const getdb = () => {
+  if (!db) {
+    throw new Error('Database has not been initialized. Please call initializeDatabase first.');
+  }
+  return db;
+};
 
 
 export default {
   initializeDatabase,
-  db
+  getdb
 }

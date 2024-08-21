@@ -3,7 +3,7 @@ import Device from './Device';
 
 import config from '../config';
 
-const DeviceActiveDirectory = config.db.db.define("DeviceActiveDirectory", {
+const DeviceActiveDirectory = config.db.getdb().define("DeviceActiveDirectory", {
         DeviceActiveDirectoryID:                {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
         DeviceID:                               {type:sql.INTEGER, allowNull:false, unique:true},
         ActiveDirectoryDN:                      {type:sql.STRING, allowNull:false, unique:true},

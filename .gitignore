@@ -112,5 +112,5 @@ dist
 /lib
 
 # test
-/tests
+tests/
 jest.*

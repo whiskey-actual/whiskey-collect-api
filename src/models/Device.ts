@@ -7,7 +7,7 @@ import DeviceActiveDirectory from './DeviceActiveDirectory';
 //import DeviceAzure from './DeviceAzure';
 import config from '../config';
 
-const Device = config.db.db.define("Device", {
+const Device = config.db.getdb().define("Device", {
     DeviceID:           {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
     DeviceName:         {type:sql.STRING, allowNull:false, unique:true},
     DeviceFQDN:         {type:sql.STRING, unique:true},

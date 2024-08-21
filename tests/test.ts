@@ -11,4 +11,6 @@ async function doShit() {
     await c.addActiveDirectoryDeviceData({})    
 }
 
+
+
 main()
