@@ -4,11 +4,15 @@ import { Sequelize } from 'sequelize';
 import config from './config';
   
 export default class CollectorAPI {
-    
-    public async initdb(dbHost:string, dbName:string, dbUser:string, dbPass:string, dbShowLog:boolean=false) {
-        await config.db.initializeDatabase(dbHost, dbName, dbUser, dbPass, dbShowLog);
+
+    constructor(dbHost:string, dbName:string, dbUser:string, dbPass:string, dbShowLog:boolean=false) {
+        config.db.initializeDatabase(dbHost, dbName, dbUser, dbPass, dbShowLog);
     }
 
+    public async syncDb() {
+        await config.db.syncDb()
+    }
+    
 
     public async addActiveDirectoryDeviceData(data:any) {
         config.le.AddDelimiter("Active Directory Device Data")

@@ -20,12 +20,14 @@ async function initializeDatabase(dbHost:string, dbName:string, dbUser:string, d
           idle: 10000
       }
   });
-  
-  await db.sync({force:true})
 
   le.AddLogEntry(LogEntryType.Warning, ".. db connection setup complete. ")
 
 };
+
+async function syncDb() {
+  await getdb().sync({force:true})
+}
 
 const getdb = () => {
   if (!db) {
@@ -37,5 +39,6 @@ const getdb = () => {
 
 export default {
   initializeDatabase,
+  syncDb,
   getdb
 }
