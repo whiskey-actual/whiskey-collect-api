@@ -2,7 +2,6 @@
 import { Sequelize } from 'sequelize';
 import { LogEntryType } from 'whiskey-log';
 import le from './le';
-import sleep from '../utilities/sleep';
 
 let db:Sequelize|null=null
 
@@ -28,13 +27,7 @@ async function initializeDatabase(dbHost:string, dbName:string, dbUser:string, d
 
 };
 
-const getdb = async () => {
-  const MAX_ATTEMPTS = 30
-  let attemptCounter=0
-  while(!db && attemptCounter<MAX_ATTEMPTS) {
-    sleep(le, ".. waiting for db")
-    attemptCounter++
-  }
+const getdb = () => {
   if (!db) {
     throw new Error('Database has not been initialized. Please call initializeDatabase first.');
   }
