@@ -1,7 +1,5 @@
 import sql, { Model, Sequelize } from 'sequelize'
-import {Device} from './Device';
-
-import config from '../config';
+//import {Device} from './Device';
 
 export class DeviceActiveDirectory extends Model<any,any> {
     public DeviceActiveDirectoryID!:                number
@@ -39,7 +37,7 @@ export function initDeviceActiveDirectory(sequelize:Sequelize) {
         tableName: 'DeviceActiveDirectory',
     })
 
-    DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
+    //DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
 
 }
    

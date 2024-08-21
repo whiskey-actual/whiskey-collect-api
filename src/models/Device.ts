@@ -1,5 +1,5 @@
 import sql, { Model, Sequelize } from 'sequelize'
-import { DeviceActiveDirectory } from './DeviceActiveDirectory'
+//import { DeviceActiveDirectory } from './DeviceActiveDirectory'
 //import OperatingSystem from './OperatingSystem';
 //import DeviceActiveDirectory from './DeviceActiveDirectory';
 //import DeviceAzureManaged from './DeviceAzureManaged';
@@ -57,8 +57,8 @@ export function initDevice(sequelize:Sequelize) {
         tableName: 'Device'
     })
 
-    Device.upsert({DeviceID:0, DeviceName:'UNKNOWN'})
-    Device.belongsTo(DeviceActiveDirectory, {as:'DeviceActiveDirectory', foreignKey:'DeviceActiveDirectoryID'})
+    //Device.upsert({DeviceID:0, DeviceName:'UNKNOWN'})
+    //Device.belongsTo(DeviceActiveDirectory, {as:'DeviceActiveDirectory', foreignKey:'DeviceActiveDirectoryID'})
 
 //Device.belongsTo(OperatingSystem, {foreignKey: {name:'OperatingSystemID', allowNull:false, defaultValue:0}})
 
