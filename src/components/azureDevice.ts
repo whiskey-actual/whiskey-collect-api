@@ -90,7 +90,9 @@ export default async function azureDevice(data:any) {
             try {
                 DeviceID = await ws.getId(Device, DeviceName)
                 if(!DeviceID) {
+                    le.AddLogEntry(LogEntryType.Info, "device not found: " + DeviceName + ", adding ..")
                     DeviceID = await ws.createRow(Device, {DeviceName})
+                    le.AddLogEntry(LogEntryType.Add, DeviceName)
                 }
             } catch(err:any) {
                 le.AddLogEntry(LogEntryType.Error, "error getting DeviceID: " + (err.message || 'unknown error'))
@@ -99,7 +101,7 @@ export default async function azureDevice(data:any) {
 
             if(DeviceID) {
                 try {
-
+                    le.AddLogEntry(LogEntryType.Info, DeviceName + " : adding azure details .. ")
                     await ws.createRow(DeviceAzure, {
                         DeviceID,
                         AzureDeviceId,
@@ -143,7 +145,7 @@ export default async function azureDevice(data:any) {
               
         }
     } catch(err:any) {
-        config.le.AddLogEntry(LogEntryType.Error, err.message || 'unknown error')
+        config.le.AddLogEntry(LogEntryType.Error, data)
         //throw new Error(err)
     } finally {
         config.le.logStack.pop()
