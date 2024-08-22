@@ -18,13 +18,7 @@ export default async function azureDevice(data:any):Promise<number> {
         const mandatoryFields = [
             'DeviceName',
             'AzureDeviceId',
-            'AzureDeviceOwnership',
             'AzureDeviceVersion',
-            'AzureEnrollmentType',
-            'AzureManagementType',
-            'AzureManufacturer',
-            'AzureMDMAppId',
-            'AzureModel',
             'AzureOperatingSystemVersion',
             'AzureProfileType',
             'AzureTrustType',
@@ -34,6 +28,13 @@ export default async function azureDevice(data:any):Promise<number> {
             'AzureAccountEnabled',
             'AzureIsCompliant',
             'AzureIsManaged',
+            
+            //'AzureDeviceOwnership',
+            //'AzureEnrollmentType',
+            //'AzureManagementType',
+            //'AzureManufacturer',
+            //'AzureMDMAppId',
+            //'AzureModel',
             //'AzureDeviceCategory',
             //'AzureDeviceMetadata',
             //'AzureDomainName',
@@ -54,24 +55,22 @@ export default async function azureDevice(data:any):Promise<number> {
             // always present
             const DeviceName:string = data.DeviceName.trim()
             const AzureDeviceId:string = data.AzureDeviceId.trim()
-            const AzureDeviceOwnership:string = data.AzureDeviceOwnership.trim()
             const AzureDeviceVersion:string = data.AzureDeviceVersion.trim()
-            const AzureEnrollmentType:string = data.AzureEnrollmentType.trim()
-            const AzureManagementType:string = data.AzureManagementType.trim()
-            const AzureManufacturer:string = data.AzureManufacturer.trim()
-            const AzureMDMAppId:string = data.AzureMDMAppId.trim()
-            const AzureModel:string = data.AzureModel.trim()
             const AzureOperatingSystemVersion:string = data.AzureOperatingSystemVersion.trim()
             const AzureProfileType:string = data.AzureProfileType.trim()
             const AzureTrustType:string = data.AzureTrustType.trim()
             const AzureApproximateLastSignInDateTime:Date = new Date(data.AzureApproximateLastSignInDateTime)
             const AzureCreatedDateTime:Date = new Date(data.AzureCreatedDateTime)
             const AzureRegistrationDateTime:Date = new Date(data.AzureRegistrationDateTime)
-            const AzureAccountEnabled:boolean = Boolean(data.AzureAccountEnabled)
-            const AzureIsCompliant:boolean = Boolean(data.AzureIsCompliant)
-            const AzureIsManaged:boolean = Boolean(data.AzureIsManaged)
 
             // sometimes present
+            const AzureDeviceOwnership:string|undefined = CleanedString(data.AzureDeviceOwnership)
+            const AzureEnrollmentType:string|undefined = CleanedString(data.AzureEnrollmentType)
+            const AzureManagementType:string|undefined = CleanedString(data.AzureManagementType)
+            const AzureManufacturer:string|undefined = CleanedString(data.AzureManufacturer)
+            const AzureMDMAppId:string|undefined = CleanedString(data.AzureMDMAppId)
+            const AzureModel:string|undefined = CleanedString(data.AzureModel)
+
             const AzureDeviceCategory:string|undefined = CleanedString(data.AzureDeviceCategory)
             const AzureDeviceMetadata:string|undefined = CleanedString(data.AzureDeviceMetadata)
             const AzureDomainName:string|undefined = CleanedString(data.AzureDomainName)
@@ -84,14 +83,16 @@ export default async function azureDevice(data:any):Promise<number> {
             const AzureComplianceExpirationDateTime:Date|undefined = CleanedDate(data.AzureComplianceExpirationDateTime)
             const AzureOnPremisesLastSyncDateTime:Date|undefined = CleanedDate(data.AzureOnPremisesLastSyncDateTime)
 
-            const AzureOnPremisesSyncEnabled:boolean = Boolean(data.AzureOnPremisesSyncEnabled)
-            const AzureIsRooted:boolean = Boolean(data.AzureIsRooted)
+            const AzureOnPremisesSyncEnabled:boolean|undefined = Boolean(data.AzureOnPremisesSyncEnabled)
+            const AzureIsRooted:boolean|undefined = Boolean(data.AzureIsRooted)
+            const AzureAccountEnabled:boolean|undefined = Boolean(data.AzureAccountEnabled)
+            const AzureIsCompliant:boolean|undefined = Boolean(data.AzureIsCompliant)
+            const AzureIsManaged:boolean|undefined = Boolean(data.AzureIsManaged)
 
             const ws = new Sequelizer(config.le)
 
             let DeviceID:number = await getDeviceId(DeviceName)
             try {
-                le.AddLogEntry(LogEntryType.Info, DeviceName + " : adding azure details .. ")
                 output = await ws.createRow(DeviceAzure, {
                     DeviceID,
                     AzureDeviceId,
@@ -123,7 +124,7 @@ export default async function azureDevice(data:any):Promise<number> {
                     AzureIsCompliant,
                     AzureIsManaged,
                     AzureIsRooted,
-                })         
+                }, true, true)         
 
             } catch(err:any) {
                 le.AddLogEntry(LogEntryType.Error, "error persisting azure device data: " + (err.message || 'unknown error'))

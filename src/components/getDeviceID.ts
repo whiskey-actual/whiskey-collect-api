@@ -18,9 +18,11 @@ export default async function getDeviceId(DeviceName:string):Promise<number> {
         try {
             DeviceID = await ws.getId(Device, DeviceName)
             if(!DeviceID) {
-                le.AddLogEntry(LogEntryType.Info, "device not found: " + DeviceName + ", adding ..")
+                //le.AddLogEntry(LogEntryType.Info, "device not found: " + DeviceName + ", adding ..")
                 DeviceID = await ws.createRow(Device, {DeviceName})
                 le.AddLogEntry(LogEntryType.Add, DeviceName)
+            } else {
+                le.AddLogEntry(LogEntryType.Success, DeviceName)
             }
         } catch(err:any) {
             le.AddLogEntry(LogEntryType.Error, "error getting DeviceID: " + (err.message || 'unknown error'))
