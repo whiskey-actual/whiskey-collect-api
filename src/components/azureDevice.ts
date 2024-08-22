@@ -6,6 +6,7 @@ import config from "../config";
 import { DeviceAzure } from "../models/DeviceAzure";
 import { CleanedDate, CleanedString } from "whiskey-util";
 import le from "../config/le";
+import getDeviceId from "./getDeviceID";
 
 export default async function azureDevice(data:any) {
     config.le.logStack.push("azureDevice")
@@ -86,62 +87,46 @@ export default async function azureDevice(data:any) {
 
             const ws = new Sequelizer(config.le)
 
-            let DeviceID:number|undefined=undefined
+            let DeviceID:number = await getDeviceId(DeviceName)
             try {
-                DeviceID = await ws.getId(Device, DeviceName)
-                if(!DeviceID) {
-                    le.AddLogEntry(LogEntryType.Info, "device not found: " + DeviceName + ", adding ..")
-                    DeviceID = await ws.createRow(Device, {DeviceName})
-                    le.AddLogEntry(LogEntryType.Add, DeviceName)
-                }
+                le.AddLogEntry(LogEntryType.Info, DeviceName + " : adding azure details .. ")
+                await ws.createRow(DeviceAzure, {
+                    DeviceID,
+                    AzureDeviceId,
+                    AzureDeviceCategory,
+                    AzureDeviceMetadata,
+                    AzureDeviceOwnership,
+                    AzureDeviceVersion,
+                    AzureDomainName,
+                    AzureEnrollmentProfileType,
+                    AzureEnrollmentType,
+                    AzureExternalSourceName,
+                    AzureManagementType,
+                    AzureManufacturer,
+                    AzureMDMAppId,
+                    AzureModel,
+                    AzureOperatingSystem,
+                    AzureOperatingSystemVersion,
+                    AzureProfileType,
+                    AzureSourceType,
+                    AzureTrustType,
+                    AzureDeletedDateTime,
+                    AzureApproximateLastSignInDateTime,
+                    AzureComplianceExpirationDateTime,
+                    AzureCreatedDateTime,
+                    AzureOnPremisesLastSyncDateTime,
+                    AzureRegistrationDateTime,
+                    AzureOnPremisesSyncEnabled,
+                    AzureAccountEnabled,
+                    AzureIsCompliant,
+                    AzureIsManaged,
+                    AzureIsRooted,
+                })         
+
             } catch(err:any) {
-                le.AddLogEntry(LogEntryType.Error, "error getting DeviceID: " + (err.message || 'unknown error'))
+                le.AddLogEntry(LogEntryType.Error, "error persisting azure device data: " + (err.message || 'unknown error'))
                 throw new Error(err)
             }
-
-            if(DeviceID) {
-                try {
-                    le.AddLogEntry(LogEntryType.Info, DeviceName + " : adding azure details .. ")
-                    await ws.createRow(DeviceAzure, {
-                        DeviceID,
-                        AzureDeviceId,
-                        AzureDeviceCategory,
-                        AzureDeviceMetadata,
-                        AzureDeviceOwnership,
-                        AzureDeviceVersion,
-                        AzureDomainName,
-                        AzureEnrollmentProfileType,
-                        AzureEnrollmentType,
-                        AzureExternalSourceName,
-                        AzureManagementType,
-                        AzureManufacturer,
-                        AzureMDMAppId,
-                        AzureModel,
-                        AzureOperatingSystem,
-                        AzureOperatingSystemVersion,
-                        AzureProfileType,
-                        AzureSourceType,
-                        AzureTrustType,
-                        AzureDeletedDateTime,
-                        AzureApproximateLastSignInDateTime,
-                        AzureComplianceExpirationDateTime,
-                        AzureCreatedDateTime,
-                        AzureOnPremisesLastSyncDateTime,
-                        AzureRegistrationDateTime,
-                        AzureOnPremisesSyncEnabled,
-                        AzureAccountEnabled,
-                        AzureIsCompliant,
-                        AzureIsManaged,
-                        AzureIsRooted,
-                    })         
-
-                } catch(err:any) {
-                    le.AddLogEntry(LogEntryType.Error, "error persisting azure device data: " + (err.message || 'unknown error'))
-                    throw new Error(err)
-                }
-            }
-            
-            
               
         }
     } catch(err:any) {
