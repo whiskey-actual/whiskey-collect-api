@@ -28,22 +28,22 @@ export function initDevice(sequelize:Sequelize) {
         DeviceLastSeen:             {type:sql.DATE, allowNull:false, defaultValue:new Date()},
     
         // OperatingSystem
-        DeviceOperatingSystem:      {type:sql.INTEGER, allowNull:false, defaultValue:0},
+        DeviceOperatingSystem:      {type:sql.INTEGER},
     
         // Active Directory
-        DeviceActiveDirectoryID:    {type:sql.INTEGER, allowNull:false, defaultValue:0},
+        DeviceActiveDirectoryID:    {type:sql.INTEGER},
     
         // AzureActiveDirectory
-        DeviceAzureID:              {type:sql.INTEGER, allowNull:false, defaultValue:0},
+        DeviceAzureID:              {type:sql.INTEGER},
         
         //AzureManagedDevice
-        DeviceAzureManagedID:       {type:sql.INTEGER, allowNull:false, defaultValue:0},
+        DeviceAzureManagedID:       {type:sql.INTEGER},
         
         // connectwise
-        DeviceConnectwiseID:        {type:sql.INTEGER, allowNull:false, defaultValue:0},
+        DeviceConnectwiseID:        {type:sql.INTEGER},
     
         //  crowdstrike
-        DeviceCrowdstrikeID:        {type:sql.INTEGER, allowNull:false, defaultValue:0}
+        DeviceCrowdstrikeID:        {type:sql.INTEGER}
     }, {
         sequelize,
         tableName: 'Device'
