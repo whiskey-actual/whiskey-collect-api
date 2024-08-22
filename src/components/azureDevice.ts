@@ -5,6 +5,7 @@ import validateData from "../utilities/validateData";
 import config from "../config";
 import { DeviceAzure } from "../models/DeviceAzure";
 import { CleanedDate, CleanedString } from "whiskey-util";
+import le from "../config/le";
 
 export default async function azureDevice(data:any) {
     config.le.logStack.push("azureDevice")
@@ -84,46 +85,66 @@ export default async function azureDevice(data:any) {
             const AzureIsRooted:boolean = Boolean(data.AzureIsRooted)
 
             const ws = new Sequelizer(config.le)
-            let DeviceID = await ws.getId(Device, DeviceName)
-            if(!DeviceID) {
-                DeviceID = await ws.createRow(Device, {DeviceName})
+
+            let DeviceID:number|undefined=undefined
+            try {
+                DeviceID = await ws.getId(Device, DeviceName)
+                if(!DeviceID) {
+                    DeviceID = await ws.createRow(Device, {DeviceName})
+                }
+            } catch(err:any) {
+                le.AddLogEntry(LogEntryType.Error, "error getting DeviceID: " + (err.message || 'unknown error'))
+                throw new Error(err)
             }
-            await ws.createRow(DeviceAzure, {
-                DeviceID,
-                AzureDeviceId,
-                AzureDeviceCategory,
-                AzureDeviceMetadata,
-                AzureDeviceOwnership,
-                AzureDeviceVersion,
-                AzureDomainName,
-                AzureEnrollmentProfileType,
-                AzureEnrollmentType,
-                AzureExternalSourceName,
-                AzureManagementType,
-                AzureManufacturer,
-                AzureMDMAppId,
-                AzureModel,
-                AzureOperatingSystem,
-                AzureOperatingSystemVersion,
-                AzureProfileType,
-                AzureSourceType,
-                AzureTrustType,
-                AzureDeletedDateTime,
-                AzureApproximateLastSignInDateTime,
-                AzureComplianceExpirationDateTime,
-                AzureCreatedDateTime,
-                AzureOnPremisesLastSyncDateTime,
-                AzureRegistrationDateTime,
-                AzureOnPremisesSyncEnabled,
-                AzureAccountEnabled,
-                AzureIsCompliant,
-                AzureIsManaged,
-                AzureIsRooted,
-            })           
+
+            if(DeviceID) {
+                try {
+
+                    await ws.createRow(DeviceAzure, {
+                        DeviceID,
+                        AzureDeviceId,
+                        AzureDeviceCategory,
+                        AzureDeviceMetadata,
+                        AzureDeviceOwnership,
+                        AzureDeviceVersion,
+                        AzureDomainName,
+                        AzureEnrollmentProfileType,
+                        AzureEnrollmentType,
+                        AzureExternalSourceName,
+                        AzureManagementType,
+                        AzureManufacturer,
+                        AzureMDMAppId,
+                        AzureModel,
+                        AzureOperatingSystem,
+                        AzureOperatingSystemVersion,
+                        AzureProfileType,
+                        AzureSourceType,
+                        AzureTrustType,
+                        AzureDeletedDateTime,
+                        AzureApproximateLastSignInDateTime,
+                        AzureComplianceExpirationDateTime,
+                        AzureCreatedDateTime,
+                        AzureOnPremisesLastSyncDateTime,
+                        AzureRegistrationDateTime,
+                        AzureOnPremisesSyncEnabled,
+                        AzureAccountEnabled,
+                        AzureIsCompliant,
+                        AzureIsManaged,
+                        AzureIsRooted,
+                    })         
+
+                } catch(err:any) {
+                    le.AddLogEntry(LogEntryType.Error, "error persisting azure device data: " + (err.message || 'unknown error'))
+                    throw new Error(err)
+                }
+            }
+            
+            
+              
         }
     } catch(err:any) {
-        config.le.AddLogEntry(LogEntryType.Error, err)
-        throw new Error(err)
+        config.le.AddLogEntry(LogEntryType.Error, err.message || 'unknown error')
+        //throw new Error(err)
     } finally {
         config.le.logStack.pop()
     }
