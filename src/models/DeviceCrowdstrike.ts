@@ -64,6 +64,6 @@ export function initDeviceCrowdstrike(sequelize:Sequelize) {
     },
     {
         sequelize,
-        tableName: 'DeviceAzure'
+        tableName: 'DeviceCrowdstrike'
     })
 }

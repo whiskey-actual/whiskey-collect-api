@@ -114,6 +114,6 @@ export function initDeviceAzureManaged(sequelize:Sequelize) {
         AzureManagedIsEncrypted:                                {type:sql.BOOLEAN},
     }, {
         sequelize,
-        tableName: 'DeviceAzure'
+        tableName: 'DeviceAzureManaged'
     })
 }

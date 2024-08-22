@@ -56,7 +56,7 @@ export function initDeviceConnectwise(sequelize:Sequelize) {
     },
     {
         sequelize,
-        tableName: 'DeviceAzure'
+        tableName: 'DeviceConnectwise'
     })
 }
 
