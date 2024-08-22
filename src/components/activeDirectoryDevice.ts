@@ -1,4 +1,4 @@
-import { LogEngine, LogEntryType } from "whiskey-log";
+import { LogEntryType } from "whiskey-log";
 import { Device } from "../models/Device";
 import { DeviceActiveDirectory } from "../models/DeviceActiveDirectory";
 import { Sequelizer } from "whiskey-sequelize";
@@ -6,7 +6,7 @@ import validateData from "../utilities/validateData";
 import config from "../config";
 
 export default async function activeDirectoryDevice(data:any) {
-    config.le.logStack.push("device")
+    config.le.logStack.push("activeDirectoryDevice")
 
     try {
 
@@ -31,8 +31,10 @@ export default async function activeDirectoryDevice(data:any) {
             const ActiveDirectoryDN:string = data.DeviceDN.trim()
             const ActiveDirectoryOperatingSystem:string = data.ActiveDirectoryOperatingSystem.trim()
             const ActiveDirectoryOperatingSystemVersion:string = data.ActiveDirectoryOperatingSystemVersion.trim()
-            const ActiveDirectoryDNSHostName:string = data.ActiveDirectoryDNSHostName
+            const ActiveDirectoryDNSHostName:string = data.ActiveDirectoryDNSHostName.trim()
+
             const ActiveDirectoryLogonCount:number = parseInt(data.ActiveDirectoryLogonCount)
+            
             const ActiveDirectoryWhenCreated:Date = new Date(data.ActiveDirectoryWhenCreated)
             const ActiveDirectoryWhenChanged:Date = new Date(data.ActiveDirectoryWhenChanged)
             const ActiveDirectoryLastLogon:Date = new Date(data.ActiveDirectoryLastLogon)

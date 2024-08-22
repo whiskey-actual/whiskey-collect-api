@@ -1,14 +1,14 @@
-import { LogEngine, LogEntryType } from "whiskey-log";
-import activeDirectoryDevice from "./components/activeDirectoryDevice";
+import { LogEntryType } from "whiskey-log";
 import sql, { ModelStatic, Sequelize } from 'sequelize';
-import config from './config';
 import le from "./config/le";
-//import DeviceActiveDirectory from "./models/DeviceActiveDirectory";
 import { initModels } from "./models";
+
+// collectors
+import activeDirectoryDevice from "./components/activeDirectoryDevice";
+import azureDevice from "./components/azureDevice";
   
 export default class CollectorAPI {
-
-
+  
     constructor(dbHost:string, dbName:string, dbUser:string, dbPass:string, dbShowLog:boolean=false) {
         le.AddLogEntry(LogEntryType.Warning, "init db: " + dbUser + "@" + dbHost + "::" + dbName)
         
@@ -57,6 +57,10 @@ export default class CollectorAPI {
 
   async addActiveDirectoryDevice(data:any) {
     await activeDirectoryDevice(data)
+  }
+
+  async addAzureDevice(data:any) {
+    await azureDevice(data)
   }
 
 }
