@@ -59,8 +59,8 @@ export default class CollectorAPI {
     await activeDirectoryDevice(data)
   }
 
-  async addAzureDevice(data:any) {
-    await azureDevice(data)
+  async addAzureDevice(data:any):Promise<number> {
+    return await azureDevice(data)
   }
 
 }

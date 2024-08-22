@@ -8,8 +8,10 @@ import { CleanedDate, CleanedString } from "whiskey-util";
 import le from "../config/le";
 import getDeviceId from "./getDeviceID";
 
-export default async function azureDevice(data:any) {
+export default async function azureDevice(data:any):Promise<number> {
     config.le.logStack.push("azureDevice")
+
+    let output:number=0
 
     try {
 
@@ -90,7 +92,7 @@ export default async function azureDevice(data:any) {
             let DeviceID:number = await getDeviceId(DeviceName)
             try {
                 le.AddLogEntry(LogEntryType.Info, DeviceName + " : adding azure details .. ")
-                await ws.createRow(DeviceAzure, {
+                output = await ws.createRow(DeviceAzure, {
                     DeviceID,
                     AzureDeviceId,
                     AzureDeviceCategory,
@@ -136,6 +138,6 @@ export default async function azureDevice(data:any) {
         config.le.logStack.pop()
     }
     
-    return
+    return output
     
 }
