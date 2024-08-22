@@ -1,5 +1,4 @@
 import sql, { Model, Sequelize } from 'sequelize'
-//import {Device} from './Device';
 
 export class DeviceActiveDirectory extends Model<any,any> {
     public DeviceActiveDirectoryID!:                number
@@ -37,13 +36,4 @@ export function initDeviceActiveDirectory(sequelize:Sequelize) {
         tableName: 'DeviceActiveDirectory',
     })
 
-    //DeviceActiveDirectory.upsert({DeviceActiveDirectoryID:0, ActiveDirectoryDN:'UNKNOWN'})
-
 }
-   
-
-
-
-//DeviceActiveDirectory.belongsTo(Device, {as:'Device', foreignKey:'DeviceID'})
-
-//DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})

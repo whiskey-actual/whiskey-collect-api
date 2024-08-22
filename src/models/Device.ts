@@ -1,12 +1,4 @@
 import sql, { Model, Sequelize } from 'sequelize'
-//import { DeviceActiveDirectory } from './DeviceActiveDirectory'
-//import OperatingSystem from './OperatingSystem';
-//import DeviceActiveDirectory from './DeviceActiveDirectory';
-//import DeviceAzureManaged from './DeviceAzureManaged';
-//import DeviceConnectwise from './DeviceConnectwise';
-//import DeviceCrowdstrike from './DeviceCrowdstrike';
-//import DeviceAzure from './DeviceAzure';
-
 
 export class Device extends Model<any,any> {
     public DeviceID!: number
@@ -56,16 +48,5 @@ export function initDevice(sequelize:Sequelize) {
         sequelize,
         tableName: 'Device'
     })
-
-    //Device.upsert({DeviceID:0, DeviceName:'UNKNOWN'})
-    //Device.belongsTo(DeviceActiveDirectory, {as:'DeviceActiveDirectory', foreignKey:'DeviceActiveDirectoryID'})
-
-//Device.belongsTo(OperatingSystem, {foreignKey: {name:'OperatingSystemID', allowNull:false, defaultValue:0}})
-
-
-// Device.belongsTo(DeviceAzure, {foreignKey: {name:'DeviceAzureID', allowNull:false, defaultValue:0}})
-// Device.belongsTo(DeviceAzureManaged, {foreignKey: {name:'DeviceAzureManagedID', allowNull:false, defaultValue:0}})
-// Device.belongsTo(DeviceConnectwise, {foreignKey: {name:'DeviceConnectwiseID', allowNull:false, defaultValue:0}})
-// Device.belongsTo(DeviceCrowdstrike, {foreignKey: {name:'DeviceCrowdstrikeID', allowNull:false, defaultValue:0}})
 
 }
