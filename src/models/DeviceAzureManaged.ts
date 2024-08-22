@@ -59,59 +59,59 @@ export class DeviceAzureManaged extends Model<any,any> {
 export function initDeviceAzureManaged(sequelize:Sequelize) {
 
     DeviceAzureManaged.init({
-        DeviceAzureManagedID:                                   {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:false},
-        AzureManagedId:                                         {type:sql.STRING, allowNull:false},  // string;
-        AzureManagedDeviceName:                                 {type:sql.STRING},  // string|undefined;
-        AzureManagedUserId:                                     {type:sql.STRING},  // string|undefined;
-        AzureManagedDeviceOwnerType:                            {type:sql.STRING},  // string|undefined;
-        AzureManagedOperatingSystem:                            {type:sql.STRING},  // string|undefined;
-        AzureManagedComplianceState:                            {type:sql.STRING},  // string|undefined;
-        AzureManagedJailBroken:                                 {type:sql.STRING},  // string|undefined;
-        AzureManagedManagementAgent:                            {type:sql.STRING},  // string|undefined;
-        AzureManagedOperatingSystemVersion:                     {type:sql.STRING},  // string|undefined;
-        AzureManagedEASDeviceID:                                {type:sql.STRING},  // string|undefined;
-        AzureManagedDeviceEnrollmentType:                       {type:sql.STRING},  // string|undefined;
-        AzureManagedActivationLockBypassCode:                   {type:sql.STRING},  // string|undefined;
-        AzureManagedEmailAddress:                               {type:sql.STRING},  // string|undefined;
-        AzureManagedAzureADDeviceID:                            {type:sql.STRING},  // string|undefined;
-        AzureManagedDeviceRegistrationState:                    {type:sql.STRING},  // string|undefined;
-        AzureManagedDeviceCategoryDisplayName:                  {type:sql.STRING},  // string|undefined;
-        AzureManagedExchangeAccessState:                        {type:sql.STRING},  // string|undefined;
-        AzureManagedExchangeAccessStateReason:                  {type:sql.STRING},  // string|undefined;
-        AzureManagedRemoteAssistanceSessionUrl:                 {type:sql.STRING},  // string|undefined;
-        AzureManagedRemoteAssistanceErrorDetails:               {type:sql.STRING},  // string|undefined;
-        AzureManagedUserPrincipalName:                          {type:sql.STRING},  // string|undefined;
-        AzureManagedModel:                                      {type:sql.STRING},  // string|undefined;
-        AzureManagedManufacturer:                               {type:sql.STRING},  // string|undefined;
-        AzureManagedIMEI:                                       {type:sql.STRING},  // string|undefined;
-        AzureManagedSerialNumber:                               {type:sql.STRING},  // string|undefined;
-        AzureManagedPhoneNumber:                                {type:sql.STRING},  // string|undefined;
-        AzureManagedAndroidSecurityPatchLevel:                  {type:sql.STRING},  // string|undefined;
-        AzureManagedUserDisplayName:                            {type:sql.STRING},  // string|undefined;
-        AzureManagedConfigurationManagerClientEnabedFeatures:   {type:sql.STRING},  // string|undefined;
-        AzureManagedWiFiMACAddress:                             {type:sql.STRING},  // string|undefined;
-        AzureManagedDeviceHealthAttestationState:               {type:sql.STRING},  // string|undefined;
-        AzureManagedSubscriberCarrier:                          {type:sql.STRING},  // string|undefined;
-        AzureManagedMEID:                                       {type:sql.STRING},  // string|undefined;
-        AzureManagedTotalStorageSpaceInBytes:                   {type:sql.STRING},  // string|undefined;
-        AzureManagedFreeStorageSpaceInBytes:                    {type:sql.STRING},  // string|undefined;
-        AzureManagedPartnerReportedThreatState:                 {type:sql.STRING},  // string|undefined;
-        AzureManagedRequireUserEnrollmentApproval:              {type:sql.STRING},  // string|undefined;
-        AzureManagedICCID:                                      {type:sql.STRING},  // string|undefined;
-        AzureManagedUDID:                                       {type:sql.STRING},  // string|undefined;
-        AzureManagedNotes:                                      {type:sql.STRING},  // string|undefined;
-        AzureManagedEthernetMacAddress:                         {type:sql.STRING},  // string|undefined;
-        AzureManagedPhysicalMemoryInBytes:                      {type:sql.STRING},  // string|undefined;
-        AzureManagedEnrolledDateTime:                           {type:sql.DATE},  // Date|undefined;
-        AzureManagedLastSyncDateTime:                           {type:sql.DATE},  // Date|undefined;
-        AzureManagedEASActivationDateTime:                      {type:sql.DATE},  // Date|undefined;
-        AzureManagedExchangeLastSuccessfulSyncDateTime:         {type:sql.DATE},  // Date|undefined;
-        AzureManagedComplianceGracePeriodExpirationDateTime:    {type:sql.DATE},  // Date|undefined;
-        AzureManagedManagementCertificateExpirationDateTime:    {type:sql.DATE},  // Date|undefined;
-        AzureManagedIsEASActivated:                             {type:sql.BOOLEAN},  // boolean|undefined;
-        AzureManagedIsAzureADRegistered:                        {type:sql.BOOLEAN},  // boolean|undefined;
-        AzureManagedIsSupervised:                               {type:sql.BOOLEAN},  // boolean|undefined;
-        AzureManagedIsEncrypted:                                {type:sql.BOOLEAN},  // boolean|undefined;
+        DeviceAzureManagedID:                                   {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
+        AzureManagedId:                                         {type:sql.STRING, allowNull:false, unique:true},
+        AzureManagedDeviceName:                                 {type:sql.STRING},
+        AzureManagedUserId:                                     {type:sql.STRING},
+        AzureManagedDeviceOwnerType:                            {type:sql.STRING},
+        AzureManagedOperatingSystem:                            {type:sql.STRING},
+        AzureManagedComplianceState:                            {type:sql.STRING},
+        AzureManagedJailBroken:                                 {type:sql.STRING},
+        AzureManagedManagementAgent:                            {type:sql.STRING},
+        AzureManagedOperatingSystemVersion:                     {type:sql.STRING},
+        AzureManagedEASDeviceID:                                {type:sql.STRING},
+        AzureManagedDeviceEnrollmentType:                       {type:sql.STRING},
+        AzureManagedActivationLockBypassCode:                   {type:sql.STRING},
+        AzureManagedEmailAddress:                               {type:sql.STRING},
+        AzureManagedAzureADDeviceID:                            {type:sql.STRING},
+        AzureManagedDeviceRegistrationState:                    {type:sql.STRING},
+        AzureManagedDeviceCategoryDisplayName:                  {type:sql.STRING},
+        AzureManagedExchangeAccessState:                        {type:sql.STRING},
+        AzureManagedExchangeAccessStateReason:                  {type:sql.STRING},
+        AzureManagedRemoteAssistanceSessionUrl:                 {type:sql.STRING},
+        AzureManagedRemoteAssistanceErrorDetails:               {type:sql.STRING},
+        AzureManagedUserPrincipalName:                          {type:sql.STRING},
+        AzureManagedModel:                                      {type:sql.STRING},
+        AzureManagedManufacturer:                               {type:sql.STRING},
+        AzureManagedIMEI:                                       {type:sql.STRING},
+        AzureManagedSerialNumber:                               {type:sql.STRING},
+        AzureManagedPhoneNumber:                                {type:sql.STRING},
+        AzureManagedAndroidSecurityPatchLevel:                  {type:sql.STRING},
+        AzureManagedUserDisplayName:                            {type:sql.STRING},
+        AzureManagedConfigurationManagerClientEnabedFeatures:   {type:sql.STRING},
+        AzureManagedWiFiMACAddress:                             {type:sql.STRING},
+        AzureManagedDeviceHealthAttestationState:               {type:sql.STRING},
+        AzureManagedSubscriberCarrier:                          {type:sql.STRING},
+        AzureManagedMEID:                                       {type:sql.STRING},
+        AzureManagedTotalStorageSpaceInBytes:                   {type:sql.STRING},
+        AzureManagedFreeStorageSpaceInBytes:                    {type:sql.STRING},
+        AzureManagedPartnerReportedThreatState:                 {type:sql.STRING},
+        AzureManagedRequireUserEnrollmentApproval:              {type:sql.STRING},
+        AzureManagedICCID:                                      {type:sql.STRING},
+        AzureManagedUDID:                                       {type:sql.STRING},
+        AzureManagedNotes:                                      {type:sql.STRING},
+        AzureManagedEthernetMacAddress:                         {type:sql.STRING},
+        AzureManagedPhysicalMemoryInBytes:                      {type:sql.STRING},
+        AzureManagedEnrolledDateTime:                           {type:sql.DATE},
+        AzureManagedLastSyncDateTime:                           {type:sql.DATE},
+        AzureManagedEASActivationDateTime:                      {type:sql.DATE},
+        AzureManagedExchangeLastSuccessfulSyncDateTime:         {type:sql.DATE},
+        AzureManagedComplianceGracePeriodExpirationDateTime:    {type:sql.DATE},
+        AzureManagedManagementCertificateExpirationDateTime:    {type:sql.DATE},
+        AzureManagedIsEASActivated:                             {type:sql.BOOLEAN},
+        AzureManagedIsAzureADRegistered:                        {type:sql.BOOLEAN},
+        AzureManagedIsSupervised:                               {type:sql.BOOLEAN},
+        AzureManagedIsEncrypted:                                {type:sql.BOOLEAN},
     }, {
         sequelize,
         tableName: 'DeviceAzure'

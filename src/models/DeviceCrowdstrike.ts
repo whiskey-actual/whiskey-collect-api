@@ -33,34 +33,34 @@ export class DeviceCrowdstrike extends Model<any,any> {
 
 export function initDeviceCrowdstrike(sequelize:Sequelize) {
     DeviceCrowdstrike.init({
-        DeviceCrowdstrikeID:                                    {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:false},
-        CrowdstrikeDeviceId:                                    {type:sql.STRING, allowNull:false},   // string;
-        CrowdstrikeCID:                                         {type:sql.STRING},   // string|undefined;
-        CrowdstrikeAgentVersion:                                {type:sql.STRING},   // string|undefined;
-        CrowdstrikeBIOSManufacturer:                            {type:sql.STRING},   // string|undefined;
-        CrowdstrikeBIOSVersion:                                 {type:sql.STRING},   // string|undefined;
-        CrowdstrikeExternalIP:                                  {type:sql.STRING},   // string|undefined;
-        CrowdstrikeMACAddress:                                  {type:sql.STRING},   // string|undefined;
-        CrowdstrikeLocalIP:                                     {type:sql.STRING},   // string|undefined;
-        CrowdstrikeMachineDomain:                               {type:sql.STRING},   // string|undefined;
-        CrowdstrikeMajorVersion:                                {type:sql.STRING},   // string|undefined;
-        CrowdstrikeMinorVersion:                                {type:sql.STRING},   // string|undefined;
-        CrowdstrikeOSVersion:                                   {type:sql.STRING},   // string|undefined;
-        CrowdstrikeOSBuild:                                     {type:sql.STRING},   // string|undefined;
-        CrowdstrikePlatformName:                                {type:sql.STRING},   // string|undefined;
-        CrowdstrikeReducedFunctionalityMode:                    {type:sql.STRING},   // string|undefined;
-        CrowdstrikeProductTypeDesc:                             {type:sql.STRING},   // string|undefined;
-        CrowdstrikeProvisionStatus:                             {type:sql.STRING},   // string|undefined;
-        CrowdstrikeSerialNumber:                                {type:sql.STRING},   // string|undefined;
-        CrowdstrikeServicePackMajor:                            {type:sql.STRING},   // string|undefined;
-        CrowdstrikeServicePackMinor:                            {type:sql.STRING},   // string|undefined;
-        CrowdstrikeStatus:                                      {type:sql.STRING},   // string|undefined;
-        CrowdstrikeSystemManufacturer:                          {type:sql.STRING},   // string|undefined;
-        CrowdstrikeSystemProductName:                           {type:sql.STRING},   // string|undefined;
-        CrowdstrikeKernelVersion:                               {type:sql.STRING},   // string|undefined;
-        CrowdstrikeFirstSeenDateTime:                           {type:sql.DATE},   // Date|undefined;
-        CrowdstrikeLastSeenDateTime:                            {type:sql.DATE},   // Date|undefined;
-        CrowdstrikeModifiedDateTime:                            {type:sql.DATE},   // Date|undefined;    
+        DeviceCrowdstrikeID:                                    {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
+        CrowdstrikeDeviceId:                                    {type:sql.STRING, allowNull:false, unique:true},
+        CrowdstrikeCID:                                         {type:sql.STRING},
+        CrowdstrikeAgentVersion:                                {type:sql.STRING},
+        CrowdstrikeBIOSManufacturer:                            {type:sql.STRING},
+        CrowdstrikeBIOSVersion:                                 {type:sql.STRING},
+        CrowdstrikeExternalIP:                                  {type:sql.STRING},
+        CrowdstrikeMACAddress:                                  {type:sql.STRING},
+        CrowdstrikeLocalIP:                                     {type:sql.STRING},
+        CrowdstrikeMachineDomain:                               {type:sql.STRING},
+        CrowdstrikeMajorVersion:                                {type:sql.STRING},
+        CrowdstrikeMinorVersion:                                {type:sql.STRING},
+        CrowdstrikeOSVersion:                                   {type:sql.STRING},
+        CrowdstrikeOSBuild:                                     {type:sql.STRING},
+        CrowdstrikePlatformName:                                {type:sql.STRING},
+        CrowdstrikeReducedFunctionalityMode:                    {type:sql.STRING},
+        CrowdstrikeProductTypeDesc:                             {type:sql.STRING},
+        CrowdstrikeProvisionStatus:                             {type:sql.STRING},
+        CrowdstrikeSerialNumber:                                {type:sql.STRING},
+        CrowdstrikeServicePackMajor:                            {type:sql.STRING},
+        CrowdstrikeServicePackMinor:                            {type:sql.STRING},
+        CrowdstrikeStatus:                                      {type:sql.STRING},
+        CrowdstrikeSystemManufacturer:                          {type:sql.STRING},
+        CrowdstrikeSystemProductName:                           {type:sql.STRING},
+        CrowdstrikeKernelVersion:                               {type:sql.STRING},
+        CrowdstrikeFirstSeenDateTime:                           {type:sql.DATE},
+        CrowdstrikeLastSeenDateTime:                            {type:sql.DATE},
+        CrowdstrikeModifiedDateTime:                            {type:sql.DATE},
     },
     {
         sequelize,

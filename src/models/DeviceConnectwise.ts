@@ -29,30 +29,30 @@ export class DeviceConnectwise extends Model<any,any> {
 
 export function initDeviceConnectwise(sequelize:Sequelize) {
     DeviceConnectwise.init({
-        DeviceConnectwiseID:                {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:false},
-        ConnectwiseId:                      {type:sql.STRING, allowNull:false},  // string;
-        ConnectwiseType:                    {type:sql.STRING},  // string|undefined;
-        ConnectwiseLocation:                {type:sql.STRING},  // string|undefined;
-        ConnectwiseClient:                  {type:sql.STRING},  // string|undefined;
-        ConnectwiseOperatingSystem:         {type:sql.STRING},  // string|undefined;
-        ConnectwiseOperatingSystemVersion:  {type:sql.STRING},  // string|undefined;
-        ConnectwiseDomainName:              {type:sql.STRING},  // string|undefined;
-        ConnectwiseAgentVersion:            {type:sql.STRING},  // string|undefined;
-        ConnectwiseComment:                 {type:sql.STRING},  // string|undefined;
-        ConnectwiseIpAddress:               {type:sql.STRING},  // string|undefined;
-        ConnectwiseMacAddress:              {type:sql.STRING},  // string|undefined;
-        ConnectwiseLastUserName:            {type:sql.STRING},  // string|undefined;
-        ConnectwiseStatus:                  {type:sql.STRING},  // string|undefined;
-        ConnectwiseSerialNumber:            {type:sql.STRING},  // string|undefined;
-        ConnectwiseBiosManufacturer:        {type:sql.STRING},  // string|undefined;
-        ConnectwiseModel:                   {type:sql.STRING},  // string|undefined;
-        ConnectwiseDescription:             {type:sql.STRING},  // string|undefined;
-        ConnectwiseTotalMemory:             {type:sql.NUMBER},  // Number|undefined;
-        ConnectwiseFreeMemory:              {type:sql.NUMBER},  // Number|undefined;
-        ConnectwiseLastObserved:            {type:sql.DATE},  // Date|undefined;
-        ConnectwiseFirstSeen:               {type:sql.DATE},  // Date|undefined;
-        ConnectwiseWindowsUpdateDate:       {type:sql.DATE},  // Date|undefined;
-        ConnectwiseAntivirusDefinitionDate: {type:sql.DATE},  // Date|undefined;
+        DeviceConnectwiseID:                {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
+        ConnectwiseId:                      {type:sql.STRING, allowNull:false, unique:true},
+        ConnectwiseType:                    {type:sql.STRING},
+        ConnectwiseLocation:                {type:sql.STRING},
+        ConnectwiseClient:                  {type:sql.STRING},
+        ConnectwiseOperatingSystem:         {type:sql.STRING},
+        ConnectwiseOperatingSystemVersion:  {type:sql.STRING},
+        ConnectwiseDomainName:              {type:sql.STRING},
+        ConnectwiseAgentVersion:            {type:sql.STRING},
+        ConnectwiseComment:                 {type:sql.STRING},
+        ConnectwiseIpAddress:               {type:sql.STRING},
+        ConnectwiseMacAddress:              {type:sql.STRING},
+        ConnectwiseLastUserName:            {type:sql.STRING},
+        ConnectwiseStatus:                  {type:sql.STRING},
+        ConnectwiseSerialNumber:            {type:sql.STRING},
+        ConnectwiseBiosManufacturer:        {type:sql.STRING},
+        ConnectwiseModel:                   {type:sql.STRING},
+        ConnectwiseDescription:             {type:sql.STRING},
+        ConnectwiseTotalMemory:             {type:sql.NUMBER},
+        ConnectwiseFreeMemory:              {type:sql.NUMBER},
+        ConnectwiseLastObserved:            {type:sql.DATE},
+        ConnectwiseFirstSeen:               {type:sql.DATE},
+        ConnectwiseWindowsUpdateDate:       {type:sql.DATE},
+        ConnectwiseAntivirusDefinitionDate: {type:sql.DATE},
     },
     {
         sequelize,
