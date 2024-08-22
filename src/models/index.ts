@@ -33,23 +33,19 @@ function addDefaultValues() {
 
 function defineRelationships() {
 
-  Device.belongsTo(DeviceActiveDirectory, {as:'DeviceActiveDirectory', foreignKey:'DeviceActiveDirectoryID'})
+  Device.belongsTo(DeviceActiveDirectory, {foreignKey: {name:'DeviceActiveDirectoryID', allowNull:false, defaultValue:0}})
   //Device.belongsTo(OperatingSystem, {foreignKey: {name:'OperatingSystemID', allowNull:false, defaultValue:0}})
   Device.belongsTo(DeviceAzure, {foreignKey: {name:'DeviceAzureID', allowNull:false, defaultValue:0}})
   Device.belongsTo(DeviceAzureManaged, {foreignKey: {name:'DeviceAzureManagedID', allowNull:false, defaultValue:0}})
   Device.belongsTo(DeviceConnectwise, {foreignKey: {name:'DeviceConnectwiseID', allowNull:false, defaultValue:0}})
   Device.belongsTo(DeviceCrowdstrike, {foreignKey: {name:'DeviceCrowdstrikeID', allowNull:false, defaultValue:0}})
 
-  DeviceActiveDirectory.belongsTo(Device, {as:'Device', foreignKey:'DeviceID'})
-  DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})
-
-  DeviceAzure.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
-
-  DeviceAzureManaged.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
-
-  DeviceConnectwise.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
-
-  DeviceCrowdstrike.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
+  //DeviceActiveDirectory.belongsTo(Device, {as:'Device', foreignKey:'DeviceID'})
+  //DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})
+  //DeviceAzure.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
+  //DeviceAzureManaged.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
+  //DeviceConnectwise.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
+  //DeviceCrowdstrike.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
 
 }
 
