@@ -12,7 +12,7 @@ export default async function getDeviceId(DeviceName:string):Promise<number> {
     
         const ws = new Sequelizer(le)
 
-        le.AddLogEntry(LogEntryType.Info, ".. getting deviceId: " + DeviceName)
+        //le.AddLogEntry(LogEntryType.Info, ".. getting deviceId: " + DeviceName)
 
         let DeviceID:number|undefined=undefined
         try {
