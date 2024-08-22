@@ -38,8 +38,8 @@ export class DeviceAzure extends Model<any,any> {
 export function initDeviceAzure(sequelize:Sequelize) {
 
     DeviceAzure.init({
-        DeviceAzureID:                         {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:false},
-        AzureDeviceId:                         {type:sql.STRING, allowNull:false},
+        DeviceAzureID:                         {type:sql.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
+        AzureDeviceId:                         {type:sql.STRING, allowNull:false, unique:true},
         AzureDisplayName:                      {type:sql.STRING},
         AzureId:                               {type:sql.STRING},
         AzureDeviceCategory:                   {type:sql.STRING},
