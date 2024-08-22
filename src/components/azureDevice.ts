@@ -13,36 +13,34 @@ export default async function azureDevice(data:any) {
         const mandatoryFields = [
             'DeviceName',
             'AzureDeviceId',
-            'AzureDisplayName',
-            'AzureId',
-            'AzureDeviceCategory',
-            'AzureDeviceMetadata',
+            //'AzureDeviceCategory',
+            //'AzureDeviceMetadata',
             'AzureDeviceOwnership',
             'AzureDeviceVersion',
-            'AzureDomainName',
-            'AzureEnrollmentProfileType',
+            //'AzureDomainName',
+            //'AzureEnrollmentProfileType',
             'AzureEnrollmentType',
-            'AzureExternalSourceName',
+            //'AzureExternalSourceName',
             'AzureManagementType',
             'AzureManufacturer',
             'AzureMDMAppId',
             'AzureModel',
-            'AzureOperatingSystem',
+            //'AzureOperatingSystem',
             'AzureOperatingSystemVersion',
             'AzureProfileType',
-            'AzureSourceType',
+            //'AzureSourceType',
             'AzureTrustType',
-            'AzureDeletedDateTime',
+            //'AzureDeletedDateTime',
             'AzureApproximateLastSignInDateTime',
-            'AzureComplianceExpirationDateTime',
+            //'AzureComplianceExpirationDateTime',
             'AzureCreatedDateTime',
-            'AzureOnPremisesLastSyncDateTime',
+            //'AzureOnPremisesLastSyncDateTime',
             'AzureRegistrationDateTime',
-            'AzureOnPremisesSyncEnabled',
+            //'AzureOnPremisesSyncEnabled',
             'AzureAccountEnabled',
             'AzureIsCompliant',
             'AzureIsManaged',
-            'AzureIsRooted',
+            //'AzureIsRooted',
         ]
 
         const validated = validateData(mandatoryFields, data)
@@ -51,8 +49,6 @@ export default async function azureDevice(data:any) {
             const DeviceName:string = data.DeviceName.trim()
            
             const AzureDeviceId:string = data.AzureDeviceId.trim()
-            const AzureDisplayName:string = data.AzureDisplayName.trim()
-            const AzureId:string = data.AzureId.trim()
             const AzureDeviceCategory:string = data.AzureDeviceCategory.trim()
             const AzureDeviceMetadata:string = data.AzureDeviceMetadata.trim()
             const AzureDeviceOwnership:string = data.AzureDeviceOwnership.trim()
@@ -92,8 +88,6 @@ export default async function azureDevice(data:any) {
             await ws.createRow(DeviceAzure, {
                 DeviceID,
                 AzureDeviceId,
-                AzureDisplayName,
-                AzureId,
                 AzureDeviceCategory,
                 AzureDeviceMetadata,
                 AzureDeviceOwnership,
