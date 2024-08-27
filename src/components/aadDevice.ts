@@ -8,8 +8,8 @@ import { CleanedDate, CleanedString } from "whiskey-util";
 import le from "../config/le";
 import getDeviceId from "./getDeviceID";
 
-export default async function azureDevice(data:any):Promise<number> {
-    config.le.logStack.push("azureDevice")
+export default async function aadDevice(data:any):Promise<number> {
+    config.le.logStack.push("aadDevice")
 
     let output:number=0
 
@@ -127,7 +127,7 @@ export default async function azureDevice(data:any):Promise<number> {
                 }, true, true)         
 
             } catch(err:any) {
-                le.AddLogEntry(LogEntryType.Error, "error persisting azure device data: " + (err.message || 'unknown error'))
+                le.AddLogEntry(LogEntryType.Error, "error persisting AAD device data: " + (err.message || 'unknown error'))
                 throw new Error(err)
             }
               

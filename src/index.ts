@@ -5,7 +5,10 @@ import { initModels } from "./models";
 
 // collectors
 import activeDirectoryDevice from "./components/activeDirectoryDevice";
-import azureDevice from "./components/azureDevice";
+import azureDevice from "./components/aadDevice";
+import crowdstrikeDevice from "./components/crowdstrikeDevice";
+import aadDevice from "./components/aadDevice";
+import mdmDevice from "./components/mdmDevice";
   
 export default class CollectorAPI {
   
@@ -59,8 +62,16 @@ export default class CollectorAPI {
     await activeDirectoryDevice(data)
   }
 
-  async addAzureDevice(data:any):Promise<number> {
-    return await azureDevice(data)
+  async addAADDevice(data:any):Promise<number> {
+    return await aadDevice(data)
+  }
+
+  async addMDMDevice(data:any):Promise<number> {
+    return await mdmDevice(data)
+  }
+
+  async addCrowdstrikeDevice(data:any) {
+    return await crowdstrikeDevice(data)
   }
 
 }
