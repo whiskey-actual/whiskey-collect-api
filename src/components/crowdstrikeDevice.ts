@@ -79,11 +79,12 @@ export default async function crowdstrikeDevice(data:any):Promise<number> {
             const CrowdstrikeLastSeenDateTime:Date|undefined=CleanedDate(data.CrowdstrikeLastSeenDateTime)
             const CrowdstrikeModifiedDateTime:Date|undefined=CleanedDate(data.CrowdstrikeModifiedDateTime)
 
-            const ws = new Sequelizer(config.le)
+            const ws = new Sequelizer()
 
             let DeviceID:number = await getDeviceId(DeviceName)
             try {
-                output = await ws.createRow(DeviceCrowdstrike, {
+                output = await ws.createRow(le, DeviceCrowdstrike, {
+                    DeviceID,
                     DeviceName,
                     CrowdstrikeDeviceId,
                     CrowdstrikeCID,

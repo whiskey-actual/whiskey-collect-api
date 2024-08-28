@@ -1,5 +1,4 @@
 import { LogEntryType } from "whiskey-log";
-import { Device } from "../models/Device";
 import { Sequelizer } from "whiskey-sequelize";
 import validateData from "../utilities/validateData";
 import config from "../config";
@@ -130,11 +129,11 @@ export default async function mdmDevice(data:any):Promise<number> {
             const AzureManagedIsSupervised:boolean|undefined = Boolean(data.AzureManagedIsSupervised)
             const AzureManagedIsEncrypted:boolean|undefined = Boolean(data.AzureManagedIsEncrypted)
 
-            const ws = new Sequelizer(config.le)
+            const ws = new Sequelizer()
 
             let DeviceID:number = await getDeviceId(DeviceName)
             try {
-                output = await ws.createRow(DeviceAzureManaged, {
+                output = await ws.createRow(le, DeviceAzureManaged, {
                     DeviceID,
                     AzureManagedId,
                     AzureManagedDeviceName,

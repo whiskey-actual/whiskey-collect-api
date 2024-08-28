@@ -89,11 +89,11 @@ export default async function aadDevice(data:any):Promise<number> {
             const AzureIsCompliant:boolean|undefined = Boolean(data.AzureIsCompliant)
             const AzureIsManaged:boolean|undefined = Boolean(data.AzureIsManaged)
 
-            const ws = new Sequelizer(config.le)
+            const ws = new Sequelizer()
 
             let DeviceID:number = await getDeviceId(DeviceName)
             try {
-                output = await ws.createRow(DeviceAzure, {
+                output = await ws.createRow(le, DeviceAzure, {
                     DeviceID,
                     AzureDeviceId,
                     AzureDeviceCategory,

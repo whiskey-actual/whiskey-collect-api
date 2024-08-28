@@ -10,16 +10,16 @@ export default async function getDeviceId(DeviceName:string):Promise<number> {
 
     try {
     
-        const ws = new Sequelizer(le)
+        const ws = new Sequelizer()
 
         //le.AddLogEntry(LogEntryType.Info, ".. getting deviceId: " + DeviceName)
 
         let DeviceID:number|undefined=undefined
         try {
-            DeviceID = await ws.getId(Device, DeviceName)
+            DeviceID = await ws.getId(le, Device, DeviceName)
             if(!DeviceID) {
                 //le.AddLogEntry(LogEntryType.Info, "device not found: " + DeviceName + ", adding ..")
-                DeviceID = await ws.createRow(Device, {DeviceName})
+                DeviceID = await ws.createRow(le, Device, {DeviceName})
                 le.AddLogEntry(LogEntryType.Add, DeviceName)
             } else {
                 le.AddLogEntry(LogEntryType.Success, DeviceName)

@@ -41,11 +41,11 @@ function defineRelationships() {
   //Device.belongsTo(DeviceCrowdstrike, {foreignKey: {name:'DeviceCrowdstrikeID', allowNull:false, defaultValue:0}})
 
   //DeviceActiveDirectory.belongsTo(Device, {as:'Device', foreignKey:'DeviceID'})
-  //DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})
+  DeviceActiveDirectory.belongsTo(Device, {foreignKey:{name:'DeviceID', allowNull:false}})
   DeviceAzure.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false}})
-  //DeviceAzureManaged.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
-  //DeviceConnectwise.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
-  //DeviceCrowdstrike.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false, defaultValue:0}})
+  DeviceAzureManaged.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false}})
+  DeviceConnectwise.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false}})
+  DeviceCrowdstrike.belongsTo(Device, {foreignKey: {name:'DeviceID', allowNull:false}})
 
 }
 
